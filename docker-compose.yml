@@ -1,0 +1,18 @@
+services:
+  dashboard:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_UGIE_API_URL=http://ugie-api:8000
+    depends_on:
+      - ugie-api
+    restart: unless-stopped
+
+  ugie-api:
+    image: ugie-api:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - UGIE_CONFIG_DIR=/app/domain/examples
+    restart: unless-stopped
